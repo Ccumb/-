@@ -112,7 +112,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &811546467
+--- !u!1 &108780225
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,52 +120,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 811546469}
-  - component: {fileID: 811546468}
-  m_Layer: 0
-  m_Name: FindMatches
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &811546468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811546467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba339a810d4eba4ab1652f586036b7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMatches: []
---- !u!4 &811546469
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811546467}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1063051468
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1063051470}
-  - component: {fileID: 1063051469}
+  - component: {fileID: 108780227}
+  - component: {fileID: 108780226}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -173,13 +129,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1063051469
+--- !u!114 &108780226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1063051468}
+  m_GameObject: {fileID: 108780225}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c49fbe6cc805f1947b0b076680372f3d, type: 3}
@@ -187,37 +143,88 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 1
   width: 5
-  height: 8
+  height: 6
   offset: 0
-  tilePrefab: {fileID: 0}
-  breakableTilePrefab: {fileID: 0}
-  dotPrefabs: []
+  tilePrefab: {fileID: 2544616916215812771, guid: 3fac7ae32369be94095f1ec3c9fe90b3,
+    type: 3}
+  breakableTilePrefab: {fileID: 1042772770598098437, guid: 013090356d5864f4799108ebbd3414db,
+    type: 3}
+  dotPrefabs:
+  - {fileID: 7099973139504144871, guid: 948f236a3e02bea4789b01d015afa47b, type: 3}
+  - {fileID: 3252399673540424038, guid: 7f1464eeee886204db6eccb7de43cee3, type: 3}
+  - {fileID: 809601833436580208, guid: ff9ecbf375792174c82d05ae1b5bd0f3, type: 3}
+  - {fileID: 6225182188999704050, guid: 9d808d5ce6db05046a347bde68c1e4e0, type: 3}
+  - {fileID: 3511825341246770000, guid: 67da22470a39c4a448449400afdd6a9d, type: 3}
   currentDot: {fileID: 0}
   boardLayout:
-  - x: 1
-    y: 4
-    tileKind: 0
   - x: 2
     y: 4
+    tileKind: 1
+  - x: 2
+    y: 3
+    tileKind: 1
+  - x: 2
+    y: 2
+    tileKind: 1
+  - x: 1
+    y: 3
     tileKind: 0
   - x: 3
-    y: 4
+    y: 3
     tileKind: 0
-  - x: 4
-    y: 2
-    tileKind: 1
-  - x: 5
-    y: 2
-    tileKind: 1
   basePieceValue: 20
   refillDelay: 0.5
---- !u!4 &1063051470
+--- !u!4 &108780227
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1063051468}
+  m_GameObject: {fileID: 108780225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1158294806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1158294808}
+  - component: {fileID: 1158294807}
+  m_Layer: 0
+  m_Name: FindMatches
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1158294807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158294806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba339a810d4eba4ab1652f586036b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMatches: []
+--- !u!4 &1158294808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158294806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}

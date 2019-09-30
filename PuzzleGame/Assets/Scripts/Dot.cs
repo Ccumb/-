@@ -57,8 +57,7 @@ public class Dot : MonoBehaviour
         prevColumn = column;*/
     }
 
-
-    // this is for testing and Debug only
+    
     private void OnMouseOver()
     {
         if(Input.GetMouseButtonDown(1))
@@ -85,7 +84,6 @@ public class Dot : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // Destroy Hint
         if(hintManager != null)
         {
             hintManager.DestroyHint();
@@ -113,13 +111,11 @@ public class Dot : MonoBehaviour
     {
         if(isColorBomb)
         {
-            // this piece is a color bomb, and the other piece is the color to destroy
             findMatches.MatchPiecesOfColor(mOtherDot.tag);
             isMatched = true;
         }
         else if(mOtherDot.GetComponent<Dot>().isColorBomb)
         {
-            // the other piece is a color bomb, and this piece has the color to destroy
             findMatches.MatchPiecesOfColor(this.gameObject.tag);
             mOtherDot.GetComponent<Dot>().isMatched = true;
         }

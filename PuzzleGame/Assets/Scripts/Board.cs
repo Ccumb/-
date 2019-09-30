@@ -46,13 +46,13 @@ public class Board : MonoBehaviour
 
     public int basePieceValue = 20;
     private int streakValue = 1;
-    private ScoreManager scoreManager;
+    //private ScoreManager scoreManager;
     public float refillDelay = 0.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        scoreManager = FindObjectOfType<ScoreManager>();
+        //scoreManager = FindObjectOfType<ScoreManager>();
         mFindMatches = FindObjectOfType<FindMatches>();
         blankSpaces = new bool[width, height];
         dots = new GameObject[width, height];
@@ -79,13 +79,10 @@ public class Board : MonoBehaviour
 
     public void GenerateBreakableTiles()
     {
-        // Look at all the tiles in the layout
         for(int i = 0; i < boardLayout.Length; i++)
         {
-            // if a tile is a Jelly tile
             if(boardLayout[i].tileKind == TileKind.Breakable)
             {
-                // Create a Jelly tile at that pos
                 Vector2 pos = new Vector2(boardLayout[i].x, boardLayout[i].y);
                 GameObject tile = Instantiate(breakableTilePrefab, pos, Quaternion.identity);
                 breakableTiles[boardLayout[i].x, boardLayout[i].y] = tile.GetComponent<BackgroundTile>();
@@ -216,8 +213,6 @@ public class Board : MonoBehaviour
         {
             if (ColumnOrRow())
             {
-                // Make a color bomb
-                // is the current dot matched?
                 if (currentDot != null)
                 {
                     if (currentDot.isMatched)
@@ -247,7 +242,6 @@ public class Board : MonoBehaviour
             }
             else
             {
-                // Make a adjacent bomb
                 if (currentDot != null)
                 {
                     if (currentDot.isMatched)
@@ -282,16 +276,13 @@ public class Board : MonoBehaviour
     {
         if(dots[column, row].GetComponent<Dot>().isMatched)
         {
-            // How many elements are in the matched pieces list from findmatches?
             if(mFindMatches.currentMatches.Count >= 4)
             {
                 CheckToMakeBombs();
             }
-
-            // Does a tile need to break?
+            
             if(breakableTiles[column, row] != null)
             {
-                // if it does, give a one damage
                 breakableTiles[column, row].TakeDamage(1);
                 
                 if(breakableTiles[column, row].hitPoints <= 0)
@@ -301,7 +292,7 @@ public class Board : MonoBehaviour
             }
            
             Destroy(dots[column, row]);
-            scoreManager.IncreaseScore(basePieceValue * streakValue);
+            //scoreManager.IncreaseScore(basePieceValue * streakValue);
             dots[column, row] = null;
         }
     }
@@ -328,20 +319,14 @@ public class Board : MonoBehaviour
         {
             for(int j = 0; j < height; j++)
             {
-                // if the current spot isn't blank or empty
                 if(!blankSpaces[i, j] && dots[i, j] == null)
                 {
-                    // loop from the space above to the top of the column
                     for(int k = j + 1; k < height; k++)
                     {
-                        // if a dot is found
                         if(dots[i, k] != null)
                         {
-                            // move that dot to this empty space
                             dots[i, k].GetComponent<Dot>().row = j;
-                            // set that spot to be null
                             dots[i, k] = null;
-                            // break out of the loop
                             break;
                         }
                     }
@@ -452,12 +437,9 @@ public class Board : MonoBehaviour
 
     private void SwitchPieces(int column, int row, Vector2 direction)
     {
-        // Take the second piece and save it in a holder
-        GameObject holder = dots[column + (int)direction.x, row + (int)direction.y] as GameObject;
-        // switching the first dot to be the second position
+        GameObject tmp = dots[column + (int)direction.x, row + (int)direction.y] as GameObject;
         dots[column + (int)direction.x, row + (int)direction.y] = dots[column, row];
-        // Set the first dot to be the second dot
-        dots[column, row] = holder;
+        dots[column, row] = tmp;
     }
 
     private bool CheckForMatches()
@@ -468,10 +450,8 @@ public class Board : MonoBehaviour
             {
                 if(dots[i, j] != null)
                 {
-                    //Make sure that one and two to the right are in the board
                     if (i < width - 2)
                     {
-                        // Check if the dots to the right and two to the right exist
                         if (dots[i + 1, j] != null && dots[i + 2, j] != null)
                         {
                             if (dots[i + 1, j].tag == dots[i, j].tag
@@ -483,7 +463,6 @@ public class Board : MonoBehaviour
                     }
                     if (j < height - 2)
                     {
-                        // Check if the dots above exist
                         if (dots[i, j + 1] != null && dots[i, j + 2] != null)
                         {
                             if (dots[i, j + 1].tag == dots[i, j].tag
@@ -544,9 +523,7 @@ public class Board : MonoBehaviour
     private IEnumerator ShuffleBoard()
     {
         yield return new WaitForSeconds(0.5f);
-        // Create a list of game object
         List<GameObject> newBoard = new List<GameObject>();
-        // Add every piece to this list
         for(int i = 0; i < width; i++)
         {
             for(int j = 0; j < height; j++)
@@ -559,18 +536,14 @@ public class Board : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        // for every spot on the board
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                // if this spot shouldn't be blank
                 if(!blankSpaces[i, j])
                 {
-                    // pick a random number 
                     int pieceToUse = Random.Range(0, newBoard.Count);
                     
-                    // Assign the column to the piece
                     int maxIteration = 0;
 
                     while (MatchesAt(i, j, newBoard[pieceToUse]) && maxIteration < 100)
@@ -581,21 +554,17 @@ public class Board : MonoBehaviour
                         Debug.Log(maxIteration);
                     }
                     maxIteration = 0;
-
-                    // Make a container for piece
+                    
                     Dot piece = newBoard[pieceToUse].GetComponent<Dot>();
 
                     piece.column = i;
-                    // Assign the row to the piece
                     piece.row = j;
-                    // Fill in the dots array with this new piece
                     dots[i, j] = newBoard[pieceToUse];
-                    // Remove it from the list
                     newBoard.Remove(newBoard[pieceToUse]);
                 }
             }
         }
-        // Check if it's stil deadlocked
+
         if(IsDeadLocked())
         {
             ShuffleBoard();

@@ -169,13 +169,10 @@ public class FindMatches : MonoBehaviour
         {
             for(int j = 0; j < mBorad.height; j++)
             {
-                // check if that piece exists
                 if(mBorad.dots[i, j] != null)
                 {
-                    // check the tag on that dot
                     if(mBorad.dots[i, j].tag == color)
                     {
-                        // set that dot to be matched
                         mBorad.dots[i, j].GetComponent<Dot>().isMatched = true;
                     }
                 }
@@ -191,8 +188,6 @@ public class FindMatches : MonoBehaviour
         {
             for(int j = row - 1; j <= row + 1; j++)
             {
-                // Check if the piece is inside the board
-
                 if(i >= 0 && i < mBorad.width && j >= 0 && j < mBorad.height)
                 {
                     if (mBorad.dots[i, j] != null)
@@ -254,24 +249,18 @@ public class FindMatches : MonoBehaviour
 
     public void CheckBombs()
     {
-        //Did the player move something?
         if(mBorad.currentDot != null)
         {
-            //is the piece they moved matched?
             if(mBorad.currentDot.isMatched)
             {
-                // make it unmatched
                 mBorad.currentDot.isMatched = false;
-                //Decide what kind of bomb to make
                 /*int typeOfBomb = Random.Range(0, 100);
                 if(typeOfBomb < 50)
                 {
-                    // make a row bomb
                     mBorad.currentDot.MakeRowBomb();
                 }
                 else if(typeOfBomb >= 50)
                 {
-                    // make a column bomb
                     mBorad.currentDot.MakeColumnBomb();
                 }*/
                 if(mBorad.currentDot.swipAngle > -45 && mBorad.currentDot.swipAngle <= 45
@@ -284,18 +273,14 @@ public class FindMatches : MonoBehaviour
                     mBorad.currentDot.MakeColumnBomb();
                 }
             }
-            //is the other piece matched?
             else if(mBorad.currentDot.mOtherDot != null)
             {
                 Dot otherDot = mBorad.currentDot.mOtherDot.GetComponent<Dot>();
-
-                //is the other dot matched?
+                
                 if(otherDot.isMatched)
                 {
-                    // make it unmatched
                     otherDot.isMatched = false;
-
-                    // decide what kind of bomb to make
+                    
                     /*int typeOfBomb = Random.Range(0, 100);
                     if (typeOfBomb < 50)
                     {

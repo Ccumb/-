@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8130959545685112204
+--- !u!1 &6225182188999704050
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 523313600894921169}
-  - component: {fileID: 4624091147850322554}
-  - component: {fileID: 6566627829633737677}
-  - component: {fileID: 3390651698346293704}
+  - component: {fileID: 4866266626304231560}
+  - component: {fileID: 4607769744870308298}
+  - component: {fileID: 134192674734231741}
+  - component: {fileID: 8868228989498386118}
   m_Layer: 0
-  m_Name: GreenDot
-  m_TagString: G
+  m_Name: D
+  m_TagString: D
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &523313600894921169
+--- !u!4 &4866266626304231560
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8130959545685112204}
+  m_GameObject: {fileID: 6225182188999704050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.55066, y: 0.97, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4624091147850322554
+--- !u!212 &4607769744870308298
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8130959545685112204}
+  m_GameObject: {fileID: 6225182188999704050}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -71,23 +71,39 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a058d7b0a6760634bb2e62dea9fe2870, type: 3}
-  m_Color: {r: 0.7490196, g: 0.8470589, b: 0.8196079, a: 1}
+  m_Color: {r: 0.5529412, g: 0.8164367, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8192, y: 0.8192}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6566627829633737677
+--- !u!58 &134192674734231741
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6225182188999704050}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &8868228989498386118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8130959545685112204}
+  m_GameObject: {fileID: 6225182188999704050}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8f7ddc1084b75048af6e4de760a7436, type: 3}
@@ -107,26 +123,11 @@ MonoBehaviour:
   isColumnBomb: 0
   isRowBomb: 0
   isAdjacentBomb: 0
-  rowArrow: {fileID: 255360180364346757, guid: 838c4b09218e9c344befd3cb313e5bac, type: 3}
-  columnArrow: {fileID: 7595119921720232744, guid: 6bcfbb1b8302f414585abe05c988ffee,
+  rowArrow: {fileID: 1448817099997088867, guid: 74df2b0b2ec860b4584353c0daef143a,
     type: 3}
-  colorBomb: {fileID: 4857841402996979555, guid: 9232f63c99906204fb0f8eebab186424,
+  columnArrow: {fileID: 5277770621415330085, guid: 15ec19f82e1f8b142af96bf8c343f318,
     type: 3}
-  adjacentMarker: {fileID: 8195761745079532955, guid: e7b14ea6137363444a3b6303d2600b0b,
+  colorBomb: {fileID: 1795234172143901490, guid: 4881e5dea824897429deb95b06223791,
     type: 3}
---- !u!58 &3390651698346293704
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8130959545685112204}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4923077
+  adjacentMarker: {fileID: 114472114419143276, guid: e7b14ea6137363444a3b6303d2600b0b,
+    type: 3}

@@ -27,8 +27,7 @@ public class HintManager : MonoBehaviour
             hintDelaySecond = hintDelay;
         }
     }
-
-    // First, I want to find all possible matches on the board
+    
     List<GameObject> FindAllMatches()
     {
         List<GameObject> possibleMoves = new List<GameObject>();
@@ -58,8 +57,7 @@ public class HintManager : MonoBehaviour
         }
         return possibleMoves;
     }
-
-    // Pick one of those matches randomly
+    
     GameObject PickOneRandomly()
     {
         List<GameObject> possibleMoves = new List<GameObject>();
@@ -72,8 +70,7 @@ public class HintManager : MonoBehaviour
         }
         return null;
     }
-
-    // Create the hint behind the chosen match
+    
     private void MarkHint()
     {
         GameObject move = PickOneRandomly();
@@ -85,8 +82,7 @@ public class HintManager : MonoBehaviour
             }
         }
     }
-
-    // Destroy the hint
+    
     public void DestroyHint()
     {
         if(currentHint != null)

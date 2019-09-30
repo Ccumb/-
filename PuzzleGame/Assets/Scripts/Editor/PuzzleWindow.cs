@@ -53,6 +53,8 @@ public class PuzzleWindow : EditorWindow
     bool isOpenStep2 = true;
     bool isOpenStep3 = true;
     bool isOpenStep4 = true;
+    
+    Vector2 scrollPos;
 
     [MenuItem("Window/Puzzle Maker")]
     
@@ -66,8 +68,8 @@ public class PuzzleWindow : EditorWindow
     {
         GUILayout.Label("! Make a Puzzle !", EditorStyles.boldLabel);
         GUILayout.Space(6.0f);
-
-        GUILayout.BeginVertical();
+        
+        scrollPos = GUILayout.BeginScrollView(scrollPos);
 
         // 보드판 만들기
         isOpenStep1 = EditorGUILayout.Foldout(isOpenStep1, "Step 1. Make a board");
@@ -101,7 +103,15 @@ public class PuzzleWindow : EditorWindow
             MakeMenu_Dot();
         }
         GUILayout.Space(20.0f);
-        GUILayout.EndVertical();
+        GUILayout.EndScrollView();
+
+        if (GUILayout.Button("! Make a puzzle stage !", GUILayout.Height(30.0f)))
+        {
+            SetBombs();
+            SetDots();
+        }
+        GUILayout.Space(10.0f);
+
     }
 
     public void OnInspectorUpdate()
@@ -124,43 +134,49 @@ public class PuzzleWindow : EditorWindow
         GUILayout.Space(15.0f);
         GUILayout.Label("Choose a tile type, " +
                         "and Click the tile position button what you want to change a tile type.", EditorStyles.helpBox);
+        GUILayout.Label("( Normal - black, Blank - red, Breakable - blue )", EditorStyles.helpBox);
         //GUILayout.Label("You don't need to choose 'normal'.", EditorStyles.helpBox);
         tileKind = (TileKind)EditorGUILayout.EnumPopup("Select Tile type", tileKind, GUILayout.Width(350.0f));
-        for (int i = 0; i < height; i++)
+        for (int i = height - 1; i >= 0; i--)
         {
             EditorGUILayout.BeginHorizontal();
-            for(int j = 0; j < width; j++)
+            for (int j = 0; j < width; j++)
             {
-                if(GetTileKindWithPosition(i, j) == TileKind.Normal)
-                {
-                    if (GUILayout.Button(i + ", " + j, GUILayout.Width(40.0f)))
-                    {
-                        SetTileKindWithPosition(i, j, tileKind);
-                    }
-                }
-                else if(GetTileKindWithPosition(i, j) == TileKind.Breakable)
+                if (GetTileKindWithPosition(j, i) == TileKind.Breakable)
                 {
                     var style = new GUIStyle(GUI.skin.button);
                     style.normal.textColor = Color.blue;
-
-                    if (GUILayout.Button(i + ", " + j, GUILayout.Width(40.0f)))
+                    style.fixedWidth = 40.0f;
+                    
+                    if (GUILayout.Button(j + ", " + i, style))
                     {
-                        SetTileKindWithPosition(i, j, tileKind);
+                        SetTileKindWithPosition(j, i, tileKind);
                     }
                 }
-                else if(GetTileKindWithPosition(i, j) == TileKind.Blank)
+                else if(GetTileKindWithPosition(j, i) == TileKind.Blank)
                 {
                     var style = new GUIStyle(GUI.skin.button);
                     style.normal.textColor = Color.red;
+                    style.fixedWidth = 40.0f;
 
-                    if (GUILayout.Button(i + ", " + j, GUILayout.Width(40.0f)))
+                    if (GUILayout.Button(j + ", " + i, style))
                     {
-                        SetTileKindWithPosition(i, j, tileKind);
+                        SetTileKindWithPosition(j, i, tileKind);
+                    }
+                }
+                else
+                {
+                    var style = new GUIStyle(GUI.skin.button);
+                    style.normal.textColor = Color.black;
+                    style.fixedWidth = 40.0f;
+
+                    if (GUILayout.Button(j + ", " + i, style))
+                    {
+                        SetTileKindWithPosition(j, i, tileKind);
                     }
                 }
             }
             EditorGUILayout.EndHorizontal();
-            
         }
     }
 
@@ -386,6 +402,7 @@ public class PuzzleWindow : EditorWindow
         bomb.AddComponent<SpriteRenderer>();
         bomb.GetComponent<SpriteRenderer>().sprite = sprite;
         bomb.GetComponent<SpriteRenderer>().color = color;
+        bomb.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
         bombPaths[(int)bombType] = MakePrefab(bomb);
         DestroyImmediate(bomb, true);
@@ -478,15 +495,27 @@ public class PuzzleWindow : EditorWindow
     // 타일의 종류와 위치 설정
     void SetTileKindWithPosition(int x, int y, TileKind tileKind)
     {
+        for (int i = 0; i < boardLayout.Count; i++)
+        {
+            if (boardLayout[i].x == x && boardLayout[i].y == y)
+            {
+                if (boardLayout[i].tileKind != tileKind)
+                {
+                    boardLayout[i].tileKind = tileKind;
+                    Debug.Log(boardLayout.Count);
+                }
+                return;
+            }
+        }
+
         TileType tile = new TileType();
         tile.x = (int)x;
         tile.y = (int)y;
         tile.tileKind = tileKind;
 
-        Debug.Log(tile.x + ", " + tile.y + " sucessful");
-        Board board = GameObject.Find("Board").GetComponent<Board>();
         boardLayout.Add(tile);
 
+        Debug.Log(boardLayout.Count);
         SetBoardLayouts();
     }
 
@@ -499,10 +528,11 @@ public class PuzzleWindow : EditorWindow
             if(boardLayout[i].x == x && boardLayout[i].y == y)
             {
                 tileKind = boardLayout[i].tileKind;
+                return tileKind;
             }
         }
 
-        return tileKind;
+        return TileKind.Normal;
     }
 
     // 보드에 사용되는 도트 및 타일들 세팅
