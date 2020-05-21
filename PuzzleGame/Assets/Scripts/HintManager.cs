@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HintManager : MonoBehaviour
 {
-    private Board board;
+    private Normal.Board board;
     public float hintDelay;
     private float hintDelaySecond;
     public GameObject hintParticle;
@@ -13,7 +13,7 @@ public class HintManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        board = FindObjectOfType<Board>();
+        board = FindObjectOfType<Normal.Board>();
         hintDelaySecond = hintDelay;
     }
 

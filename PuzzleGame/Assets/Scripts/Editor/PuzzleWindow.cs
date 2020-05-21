@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using UnityScript;
 
+using Normal;
+
 public enum BombType
 {
     Color,
@@ -29,7 +31,7 @@ public class ObjectInfo
 public class PuzzleWindow : EditorWindow
 {
     private List<string> dotPaths = new List<string>();
-    private List<TileType> boardLayout = new List<TileType>();
+    private List<TileType> boardLayout = new List<Normal.TileType>();
     private string[] bombPaths = new string[(int)BombType.Adjacent + 1];
     private string backGroundTilePath;
     private string breakableTilePath;
@@ -37,7 +39,7 @@ public class PuzzleWindow : EditorWindow
     int width = 0;
     int height = 0;
 
-    TileKind tileKind;
+    Normal.TileKind tileKind;
 
     ObjectInfo tileInfo = new ObjectInfo();
     Tile_Type tile_Type;
@@ -56,7 +58,7 @@ public class PuzzleWindow : EditorWindow
     
     Vector2 scrollPos;
 
-    [MenuItem("Window/Puzzle Maker")]
+    [MenuItem("Window/Puzzle Maker/Normal")]
     
     static void Init()
     {
@@ -66,7 +68,7 @@ public class PuzzleWindow : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("! Make a Puzzle !", EditorStyles.boldLabel);
+        GUILayout.Label("! Make a Normal Puzzle !", EditorStyles.boldLabel);
         GUILayout.Space(6.0f);
         
         scrollPos = GUILayout.BeginScrollView(scrollPos);
@@ -142,7 +144,7 @@ public class PuzzleWindow : EditorWindow
             EditorGUILayout.BeginHorizontal();
             for (int j = 0; j < width; j++)
             {
-                if (GetTileKindWithPosition(j, i) == TileKind.Breakable)
+                if (GetTileKindWithPosition(j, i) == Normal.TileKind.Breakable)
                 {
                     var style = new GUIStyle(GUI.skin.button);
                     style.normal.textColor = Color.blue;
@@ -153,7 +155,7 @@ public class PuzzleWindow : EditorWindow
                         SetTileKindWithPosition(j, i, tileKind);
                     }
                 }
-                else if(GetTileKindWithPosition(j, i) == TileKind.Blank)
+                else if(GetTileKindWithPosition(j, i) == Normal.TileKind.Blank)
                 {
                     var style = new GUIStyle(GUI.skin.button);
                     style.normal.textColor = Color.red;
@@ -294,10 +296,15 @@ public class PuzzleWindow : EditorWindow
     void MakeBoard(int height, int width)
     {
         Board board = FindObjectOfType<Board>();
+        Hexa.Board hexaBoard = FindObjectOfType<Hexa.Board>();
 
-        if(board != null)
+        if (board != null)
         {
             DestroyImmediate(board.gameObject);
+        }
+        else if (hexaBoard != null)
+        {
+            DestroyImmediate(hexaBoard.gameObject);
         }
 
         GameObject tmpBoard = new GameObject("Board");
@@ -481,10 +488,10 @@ public class PuzzleWindow : EditorWindow
             GameObject dot = AssetDatabase.LoadAssetAtPath<GameObject>(dotPaths[i]);
             GameObject dotInstance = UnityEditor.PrefabUtility.InstantiatePrefab(dot) as GameObject;
 
-            dotInstance.GetComponent<Dot>().columnArrow = AssetDatabase.LoadAssetAtPath<GameObject>(bombPaths[(int)BombType.ColumnArrow]);
-            dotInstance.GetComponent<Dot>().rowArrow = AssetDatabase.LoadAssetAtPath<GameObject>(bombPaths[(int)BombType.RowArrow]);
-            dotInstance.GetComponent<Dot>().colorBomb = AssetDatabase.LoadAssetAtPath<GameObject>(bombPaths[(int)BombType.Color]);
-            dotInstance.GetComponent<Dot>().adjacentMarker = AssetDatabase.LoadAssetAtPath<GameObject>(bombPaths[(int)BombType.Adjacent]);
+            dotInstance.GetComponent<Normal.Dot>().columnArrow = AssetDatabase.LoadAssetAtPath<GameObject>(bombPaths[(int)BombType.ColumnArrow]);
+            dotInstance.GetComponent<Normal.Dot>().rowArrow = AssetDatabase.LoadAssetAtPath<GameObject>(bombPaths[(int)BombType.RowArrow]);
+            dotInstance.GetComponent<Normal.Dot>().colorBomb = AssetDatabase.LoadAssetAtPath<GameObject>(bombPaths[(int)BombType.Color]);
+            dotInstance.GetComponent<Normal.Dot>().adjacentMarker = AssetDatabase.LoadAssetAtPath<GameObject>(bombPaths[(int)BombType.Adjacent]);
 
             UnityEditor.PrefabUtility.ReplacePrefab(dotInstance, dot);
             AssetDatabase.SaveAssets();
@@ -521,7 +528,7 @@ public class PuzzleWindow : EditorWindow
 
     TileKind GetTileKindWithPosition(int x, int y)
     {
-        TileKind tileKind = new TileKind();
+        TileKind tileKind = new Normal.TileKind();
 
         for (int i = 0; i < boardLayout.Count; i++)
         {
@@ -538,7 +545,7 @@ public class PuzzleWindow : EditorWindow
     // 보드에 사용되는 도트 및 타일들 세팅
     void SetDots()
     {
-        Board board = FindObjectOfType<Board>();
+        Board board = FindObjectOfType<Board> ();
 
         if(board != null)
         {
@@ -553,7 +560,7 @@ public class PuzzleWindow : EditorWindow
 
     void SetBoardLayouts()
     {
-        Board board = FindObjectOfType<Board>();
+        Board board = FindObjectOfType<Board> ();
 
         if (board != null)
         {

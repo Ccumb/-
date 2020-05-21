@@ -4,43 +4,23 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - E
-  - D
-  - C
-  - B
-  - A
-  - t_e
-  - t_d
-  - t_c
-  - t_b
-  - t_a
-  - b
-  - a
-  - 5
-  - 4
-  - 3
-  - 2
-  - 1
-  - qer
-  - dfv
-  - DFQ
-  - ASD
-  - fff
-  - ads
-  - asd
-  - d
-  - asdf
-  - ccc
+  - eee
   - ddd
-  - DG
-  - G
-  - I
-  - O
-  - P
-  - S
-  - T
-  - Y
-  - Color
+  - ccc
+  - bbb
+  - aaa
+  - ed
+  - dd
+  - cd
+  - bd
+  - ad
+  - dot_E
+  - dot_D
+  - dot_C
+  - dot_B
+  - dot_A
+  - Obstacle
+  - C
   layers:
   - Default
   - TransparentFX
@@ -50,7 +30,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Node
   - 
   - 
   - 

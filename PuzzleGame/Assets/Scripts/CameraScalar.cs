@@ -5,7 +5,9 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class CameraScalar : MonoBehaviour
 {
-    private Board mBoard;
+    private Normal.Board mBoard;
+    private Hexa.Board mHexaBoard;
+
     public float cameraOffset = -20;
     public float aspectRatio = 0.625f;
     public float padding = 2;
@@ -14,25 +16,30 @@ public class CameraScalar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mBoard = FindObjectOfType<Board>();    
+        mBoard = FindObjectOfType<Normal.Board>();
+        mHexaBoard = FindObjectOfType<Hexa.Board>();
 
-        if(mBoard != null)
+        if (mBoard != null)
         {
-            RepositionCamera(mBoard.width - 1, mBoard.height - 1);
+            RepositionCamera(mBoard.width - 1, mBoard.height - 1, mBoard.width, mBoard.height);
+        }
+        else if(mHexaBoard != null)
+        {
+            RepositionCamera(mHexaBoard.totalWidth - 1, mHexaBoard.maxHeight - 1, mHexaBoard.totalWidth, mHexaBoard.maxHeight);
         }
     }
 
-    void RepositionCamera(float x, float y)
+    void RepositionCamera(float x, float y, float max_x, float max_y)
     {
         Vector3 tmpPos = new Vector3(x / 2, y / 2 + yOffset, cameraOffset);
         transform.position = tmpPos;
-        if(mBoard.width >= mBoard.height)
+        if(max_x >= max_y)
         {
-            Camera.main.orthographicSize = (mBoard.width / 2 + padding) / aspectRatio;
+            Camera.main.orthographicSize = (max_x / 2 + padding) / aspectRatio;
         }
         else
         {
-            Camera.main.orthographicSize = mBoard.height / 2 + padding;
+            Camera.main.orthographicSize = max_y / 2 + padding;
         }
     }
 
